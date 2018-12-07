@@ -19,7 +19,7 @@ router.route('/login').get((req, res, next) => {
 router.route('/register').get((req, res, next) => {
   try {
     res.set('Content-Type', 'text/html');
-    res.status(201).sendFile(path.join(__dirname, '../views/register.html'));
+    res.status(201).sendFile(path.join(__dirname, '../public/views/register.html'));
   } catch (e) {
     next(e);
   }
