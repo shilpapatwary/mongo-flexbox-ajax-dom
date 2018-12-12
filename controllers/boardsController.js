@@ -1,6 +1,5 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
-const path = require('path');
 const Boards = require('../model/boardModel');
 
 const boardsController = {

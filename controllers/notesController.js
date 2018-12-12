@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
+const debug = require('debug')('log');
 const notes = require('../data/notes.json');
 const Notes = require('../model/noteModel');
 
@@ -63,7 +64,7 @@ const notesController = {
         res.status(202).send(note);
       });
     } catch (e) {
-      console.log(e);
+      debug(e);
       next(e);
     }
   },

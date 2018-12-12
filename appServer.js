@@ -13,6 +13,7 @@ const workspacesRouter = require('./routes/workspaces');
 const channelsRouter = require('./routes/channels');
 const userRouter = require('./routes/user');
 const passport = require('./authenticate');
+const homeRouter = require('./routes/home');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,6 +38,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use('/', homeRouter);
 app.use('/auth', userRouter);
 app.use('/api/notes', notesRouter);
 app.use('/api/boards', boardsRouter);

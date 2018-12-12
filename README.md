@@ -1,3 +1,10 @@
+home page : localhost:3000
+notes page : http://localhost:3000/notes.html
+boards page: boards.html
+
+login: localhost:3000/auth/login
+register: localhost:3000/auth/register
+
 Heroku app:
 https://flexbox-ajax-18112018.herokuapp.com
 

@@ -3,6 +3,8 @@ const chai = require('chai');
 const mocha = require('mocha');
 const app = require('../appServer');
 
+const Boards = require('../model/boardModel');
+
 let userCookie;
 
 const should = chai.should();
@@ -46,85 +48,93 @@ mocha.describe('Boards Application', () => {
       });
   });
   mocha.it('should update a board', () => {
-    request(app)
-      .put('/api/boards/5bdaeff0bee9dc6b70afed34')
-      .send({
-        id: '5bdaeff0bee9dc6b70afed34',
-        name: 'board10',
-        desc: '',
-        descData: null,
-        closed: false,
-        idOrganization: null,
-        pinned: false,
-        url: 'https://trello.com/b/elaSIRX4/name',
-        shortUrl: 'https://trello.com/b/elaSIRX4',
-        prefs: {},
-        labelNames: {},
-        limits: {},
-        lists: [],
-      })
-      .set('Cookie', userCookie[0])
-      .expect('content-type', /json/)
-      .expect(200)
-      .end((error, response) => {
-        should.not.exist(error);
-        should.exist(response);
-      });
+    const newBoard = {
+      id: `${Math.floor(Math.random() * 100000)}`,
+      name: 'board_old',
+      lists: [],
+    };
+    const board = new Boards(newBoard);
+    board.save((err, brd) => {
+      request(app)
+        .put(`/api/boards/${brd.id}`)
+        .send({
+          name: 'board10',
+        })
+        .set('Cookie', userCookie[0])
+        .expect('content-type', /json/)
+        .expect(200)
+        .end((error, response) => {
+          response.body.should.be.a('object');
+          response.body.should.have.property('name').eql('board10 ');
+          should.not.exist(error);
+          should.exist(response);
+        });
+    });
   });
   mocha.it('should delete a board', () => {
-    request(app)
-      .delete('/api/boards/5bdaeff0bee9dc6b70afe7u0')
-      .set('Cookie', userCookie[0])
-      .expect('content-type', /json/)
-      .expect(200)
-      .end((error, response) => {
-        should.not.exist(error);
-        should.exist(response);
-      });
+    const newBoard = {
+      id: `${Math.floor(Math.random() * 100000)}`,
+      name: 'board_old',
+      lists: [],
+    };
+    const board = new Boards(newBoard);
+    board.save((err, brd) => {
+      request(app)
+        .delete(`/api/boards/${brd.id}`)
+        .set('Cookie', userCookie[0])
+        .expect('content-type', /json/)
+        .expect(200)
+        .end((error, response) => {
+          response.body.should.be.a('object');
+          should.not.exist(error);
+          should.exist(response);
+        });
+    });
   });
   mocha.it('should create a board', () => {
     request(app)
       .post('/api/boards/')
       .send({
-        id: '5bdaeff0bee9dc6b70afed34',
-        name: 'board15',
-        desc: '',
-        descData: null,
-        closed: false,
-        idOrganization: null,
-        pinned: false,
-        url: 'https://trello.com/b/elaSIRX4/name',
-        shortUrl: 'https://trello.com/b/elaSIRX4',
-        prefs: {},
-        labelNames: {},
-        limits: {},
+        id: `${Math.floor(Math.random() * 100000)}`,
+        name: 'board_new_1',
         lists: [],
       })
       .set('Cookie', userCookie[0])
       .expect('content-type', /json/)
       .expect(200)
       .end((error, response) => {
+        response.body.should.have.property('name');
+        response.body.should.have.property('lists');
         should.not.exist(error);
         should.exist(response);
       });
   });
   mocha.it('should create a list in a board', () => {
-    request(app)
-      .post('/api/boards/5bdaeff0bee9dc6b70afed56/lists')
-      .send({
-        id: '12345',
-        name: 'Alaska',
-        closed: false,
-        pos: 65535,
-        cards: [],
-      })
-      .set('Cookie', userCookie[0])
-      .expect('content-type', /json/)
-      .expect(200)
-      .end((error, response) => {
-        should.not.exist(error);
-        should.exist(response);
-      });
+    const newBoard = {
+      id: `${Math.floor(Math.random() * 100000)}`,
+      name: 'board_old',
+      lists: [],
+    };
+    const board = new Boards(newBoard);
+    board.save((err, brd) => {
+      request(app)
+        .put(`/api/boards/${brd.id}/lists`)
+        .send({
+          id: '12345',
+          name: 'Alaska',
+          closed: false,
+          pos: 65535,
+          cards: [],
+        })
+        .set('Cookie', userCookie[0])
+        .expect('content-type', /json/)
+        .expect(200)
+        .end((error, response) => {
+          should.not.exist(error);
+          response.body.lists.length.should.not.be.eql(0);
+          should.exist(response);
+        });
+    });
   });
   mocha.it('should create a card in a list', () => {
     request(app)

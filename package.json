@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node appServer.js",
     "lint": "./node_modules/.bin/eslint *.js",
-    "test" : "mocha --timeout 10000 --exit"
+    "test": "mocha --timeout 10000 --exit"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
     "eslint-plugin-import": "^2.14.0",
     "heroku": "^7.18.3",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.5",
+    "nodemon": "^1.18.8",
     "supertest": "^3.3.0"
   }
 }

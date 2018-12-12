@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
+const debug = require('debug')('log');
 const Channels = require('../model/channelModel');
 
 const channelsController = {
@@ -32,11 +33,11 @@ const channelsController = {
       Channels.findOne({ id: req.params.id }, (err, response) => {
         if (err) { return next(err); }
         res.set('Content-Type', 'application/json');
-        console.log(response);
+        debug(response);
         res.status(200).send(response);
       });
     } catch (e) {
-      console.log(e);
+      debug(e);
       next(e);
     }
   },

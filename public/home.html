@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+<body>
+    <header class="">Welcome!</header>
+    <section class="nav">
+            <ul>
+                    <li id="login">login</li>
+                    <li id="register">Register</li>
+            </ul>
+    </section>
+    <section id="form"></section>
+    <section id="success"></section>
+    <footer>
+
+    </footer>
+    
+    <script src="./js/home.js"></script>
+</body>
+</html>
+
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+         padding: 0;
+    }
+    header{
+        height: 40px;
+        line-height: 40px;
+        background-color: brown;
+        font-size: 30px;
+        padding: 1%;
+    }
+    .nav{
+        width: 25%;
+        text-align: center;
+    }
+    li{
+        list-style: none;
+        padding: 2%;
+        border: 1px solid brown;
+        margin: 2%;
+        cursor:pointer;
+    }
+   #form{
+    text-align: center;
+    }
+    #form div{
+        margin: 1%;
+    }
+    label{
+        padding:1.6%;
+    }
+    .hidden{
+        display:none;
+    }
+    #success{
+        text-align: center;
+    font-size: larger;
+    color: green;
+    }
+    #openWorkspaces{
+        text-align: center;
+    }
+</style>

@@ -38,7 +38,7 @@ class Boards {
       .then((data) => {
         options.callback(data);
       }).catch((err) => {
-        console.log(err);
+        debug(err);
       });
   }
 
